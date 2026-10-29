@@ -1,0 +1,29 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+
+# Editor and operating system files
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+
+# Generated logs and crawler output
+*.log
+logs/
+data/raw/
+data/processed/
+data/images/
+scrapy_douban/**/posters_scrapy/
+scrapy_douban/**/*.db
+scrapy_douban/**/*_scrapy.csv
+scrapy_douban/**/douban_scrapy.json
