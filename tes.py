@@ -1,16 +1,19 @@
 import pymysql
+import os
 from pymysql.err import OperationalError
+import utils.config  # Loads the project .env file.
 
 # ====================== 数据库连接配置（你只需要改这里！）======================
 DB_CONFIG = {
-    "host": "localhost",
-    "user": "root",           # 你的MySQL用户名
-    "password": "123456",     # 你的MySQL密码
+    "host": os.getenv("DOUBAN_DB_HOST", "localhost"),
+    "port": int(os.getenv("DOUBAN_DB_PORT", "3306")),
+    "user": os.getenv("DOUBAN_DB_USER", "root"),
+    "password": os.getenv("DOUBAN_DB_PASSWORD", ""),
     "charset": "utf8mb4"
 }
 
 # 目标数据库名
-DB_NAME = "douban"
+DB_NAME = os.getenv("DOUBAN_DB_NAME", "douban")
 
 def test_mysql_demo():
     """MySQL 建库、建表、插入、查询示例"""

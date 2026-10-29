@@ -37,7 +37,8 @@ class DoubanTop250Crawler(BaseCrawler):
         # 增加请求头
         headers.update({
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-            "Accept-Encoding": "gzip, deflate, br",
+            # 不声明尚未安装解码器的 br，否则响应可能无法解压。
+            "Accept-Encoding": "gzip, deflate",
             "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
@@ -91,7 +92,13 @@ class DoubanTop250Crawler(BaseCrawler):
         soup = BeautifulSoup(resp.text, "lxml")
         items = soup.find_all("div", class_="item")
         if not items:
-            logger.error(f"页面无数据：{url}")
+            title = soup.title.get_text(strip=True) if soup.title else "无"
+            final_url = resp.url.split("?", 1)[0]
+            logger.error(
+                f"页面无数据：{url} | 状态码：{resp.status_code} | "
+                f"最终地址：{final_url} | 页面标题：{title[:100]} | "
+                f"内容编码：{resp.headers.get('Content-Encoding', '无')}"
+            )
             return
 
         # 解析每个电影项

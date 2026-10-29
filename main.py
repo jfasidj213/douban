@@ -8,6 +8,7 @@ import pandas as pd
 import os
 import traceback
 import sys
+import utils.config  # Loads the project .env file.
 
 
 def main():
@@ -48,11 +49,11 @@ def main():
         cleaned_movies = cleaner.cleaned_df.to_dict('records')
         try:
             mysql_handler = MySQLHandler(
-                host="localhost",
-                port=3306,
-                user="root",
-                password="123456",
-                database="douban"
+                host=os.getenv("DOUBAN_DB_HOST", "localhost"),
+                port=int(os.getenv("DOUBAN_DB_PORT", "3306")),
+                user=os.getenv("DOUBAN_DB_USER", "root"),
+                password=os.getenv("DOUBAN_DB_PASSWORD", ""),
+                database=os.getenv("DOUBAN_DB_NAME", "douban")
             )
             # 初始化表结构
             mysql_handler.init_tables()

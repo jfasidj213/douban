@@ -154,10 +154,14 @@ cd douban
 # 2. 安装依赖
 pip install -r requirements.txt
 
-# 3. 配置 MySQL（本地默认：root/123456）
+# 3. 将 .env.example 复制为 .env，并填写本地 MySQL 配置
 # 4. 一键执行
 python main.py
 ```
+
+数据库密码和可选的豆瓣 Cookie 存放在项目根目录的 `.env` 中，不要提交或分享该文件。
+已有的系统环境变量优先于 `.env` 中的同名配置。豆瓣 Cookie 仅供列表页的 Requests
+爬虫使用，不会自动登录 Selenium 浏览器。留空时不发送登录 Cookie。
 
 ---
 

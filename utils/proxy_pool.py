@@ -1,6 +1,8 @@
 import random
+import os
 import requests
 from utils.logger import logger
+import utils.config  # Loads the project .env file.
 
 # 留空 = 不用代理（最稳）
 PROXIES = []
@@ -30,15 +32,9 @@ def get_random_proxy():
     return None
 
 def load_cookies():
-    cookies = {
-        "bid": "kxkFgY9bt8A",
-        "douban-fav-remind": "1",
-        "ck": "gj4C",
-        "dbcl2": "295054165:Rc2GBZyAbdM",
-        "ll": "118254",
-        "_vwo_uuid_v2": "D870F3EBBDCA6F8807218DB1C770C4433|f2f93f2a5179853005bfb672afbfb20b",
-        "__yadk_uid": "hH4jPVIByM8IbyqatyIfVv1eGL4eGtGc",
-        "push_doumail_num": "0",
-        "push_noty_num": "0"
-    }
-    return cookies
+    """Return cookies from the optional local Cookie header value."""
+    from http.cookies import SimpleCookie
+
+    cookies = SimpleCookie()
+    cookies.load(os.getenv("DOUBAN_COOKIE", ""))
+    return {name: morsel.value for name, morsel in cookies.items()}

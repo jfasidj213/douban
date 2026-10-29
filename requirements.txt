@@ -1,9 +1,11 @@
 requests
 beautifulsoup4
+lxml
 selenium
 webdriver-manager
 pandas
 matplotlib
+plotly
 seaborn
 wordcloud
 jieba
@@ -11,3 +13,4 @@ snownlp
 pymysql
 tqdm
 openpyxl
+python-dotenv
