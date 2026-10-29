@@ -27,3 +27,5 @@ scrapy_douban/**/posters_scrapy/
 scrapy_douban/**/*.db
 scrapy_douban/**/*_scrapy.csv
 scrapy_douban/**/douban_scrapy.json
+
+/docs/
